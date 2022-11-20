@@ -8,10 +8,15 @@ Super complicated Rock Paper Scissors attempt found on Reddit
 
 import streamlit as st
 import random
+import images
+
 
 def main():
-    col1,col2 = st.columns(2)
 
+    col1,col2 = st.columns(2)
+  
+    outcome = ""
+    
     with col1:
         # Title of page
         st.title("RPS 25 - A fun way to learn about probability.")
@@ -33,9 +38,9 @@ def main():
         st.write("")
         st.write("")
         # Image from game...also image depicting rules/conditions
-        st.image("RPS25Logo.jpg", use_column_width='always')
+        st.image("images/RPS25Logo.jpg", use_column_width='always')
         with st.expander("**Game Conditions**"):
-            st.image("RPS25Conditions.jpg")
+            st.image("images/RPS25Conditions.jpg")
 
     st.write("---")
 
@@ -57,7 +62,6 @@ def main():
         # Checks for when user input and computer decision are the same...tie result
         if userInput == computerDecision:
             outcome = f"You both picked {userInput}! You TIED!"
-
 
 
 
@@ -1446,112 +1450,112 @@ def main():
         # Checks to see what to put for images
         if userInput != "":
             if userInput == extremeRPSChoices[0]:
-                userImage = "nerf_gun.png"
+                userImage = "images/nerf_gun.png"
             elif userInput == extremeRPSChoices[1]:
-                userImage = "dynamite.png"
+                userImage = "images/dynamite.png"
             elif userInput == extremeRPSChoices[2]:
-                userImage = "nuke.png"
+                userImage = "images/nuke.png"
             elif userInput == extremeRPSChoices[3]:
-                userImage = "lightning.png"
+                userImage = "images/lightning.png"
             elif userInput == extremeRPSChoices[4]:
-                userImage = "horns.png"
+                userImage = "images/horns.png"
             elif userInput == extremeRPSChoices[5]:
-                userImage = "dragon.png"
+                userImage = "images/dragon.png"
             elif userInput == extremeRPSChoices[6]:
-                userImage = "alien.png"
+                userImage = "images/alien.png"
             elif userInput == extremeRPSChoices[7]:
-                userImage = "water.png"
+                userImage = "images/water.png"
             elif userInput == extremeRPSChoices[8]:
-                userImage = "bowl.png"
+                userImage = "images/bowl.png"
             elif userInput == extremeRPSChoices[9]:
-                userImage = "air.png"
+                userImage = "images/air.png"
             elif userInput == extremeRPSChoices[10]:
-                userImage = "moon.png"
+                userImage = "images/moon.png"
             elif userInput == extremeRPSChoices[11]:
-                userImage = "paper.png"
+                userImage = "images/paper.png"
             elif userInput == extremeRPSChoices[12]:
-                userImage = "sponge.png"
+                userImage = "images/sponge.png"
             elif userInput == extremeRPSChoices[13]:
-                userImage = "wolf.png"
+                userImage = "images/wolf.png"
             elif userInput == extremeRPSChoices[14]:
-                userImage = "cockroach.png"
+                userImage = "images/cockroach.png"
             elif userInput == extremeRPSChoices[15]:
-                userImage = "tree.png"
+                userImage = "images/tree.png"
             elif userInput == extremeRPSChoices[16]:
-                userImage = "man.png"
+                userImage = "images/man.png"
             elif userInput == extremeRPSChoices[17]:
-                userImage = "woman.png"
+                userImage = "images/woman.png"
             elif userInput == extremeRPSChoices[18]:
-                userImage = "monkey.png"
+                userImage = "images/monkey.png"
             elif userInput == extremeRPSChoices[19]:
-                userImage = "snake.png"
+                userImage = "images/snake.png"
             elif userInput == extremeRPSChoices[20]:
-                userImage = "axe.png"
+                userImage = "images/axe.png"
             elif userInput == extremeRPSChoices[21]:
-                userImage = "scissors.png"
+                userImage = "images/scissors.png"
             elif userInput == extremeRPSChoices[22]:
-                userImage = "fire.png"
+                userImage = "images/fire.png"
             elif userInput == extremeRPSChoices[23]:
-                userImage = "sun.png"
+                userImage = "images/sun.png"
             elif userInput == extremeRPSChoices[24]:
-                userImage = "rock.png"
+                userImage = "images/rock.png"
             else:
-                userImage = "error.png" #IF ERROR OCCURS
+                userImage = "images/error.png" #IF ERROR OCCURS
 
         # Checks for image setting for computer side
         if userInput != "":
             if computerDecision == extremeRPSChoices[0]:
-                computerImage = "nerf_gun.png"
+                computerImage = "images/nerf_gun.png"
             elif computerDecision == extremeRPSChoices[1]:
-                computerImage = "dynamite.png"
+                computerImage = "images/dynamite.png"
             elif computerDecision == extremeRPSChoices[2]:
-                computerImage = "nuke.png"
+                computerImage = "images/nuke.png"
             elif computerDecision == extremeRPSChoices[3]:
-                computerImage = "lightning.png"
+                computerImage = "images/lightning.png"
             elif computerDecision == extremeRPSChoices[4]:
-                computerImage = "horns.png"
+                computerImage = "images/horns.png"
             elif computerDecision == extremeRPSChoices[5]:
-                computerImage = "dragon.png"
+                computerImage = "images/dragon.png"
             elif computerDecision == extremeRPSChoices[6]:
-                computerImage = "alien.png"
+                computerImage = "images/alien.png"
             elif computerDecision == extremeRPSChoices[7]:
-                computerImage = "water.png"
+                computerImage = "images/water.png"
             elif computerDecision == extremeRPSChoices[8]:
-                computerImage = "bowl.png"
+                computerImage = "images/bowl.png"
             elif computerDecision == extremeRPSChoices[9]:
-                computerImage = "air.png"
+                computerImage = "images/air.png"
             elif computerDecision == extremeRPSChoices[10]:
-                computerImage = "moon.png"
+                computerImage = "images/moon.png"
             elif computerDecision == extremeRPSChoices[11]:
-                computerImage = "paper.png"
+                computerImage = "images/paper.png"
             elif computerDecision == extremeRPSChoices[12]:
-                computerImage = "sponge.png"
+                computerImage = "images/sponge.png"
             elif computerDecision == extremeRPSChoices[13]:
-                computerImage = "wolf.png"
+                computerImage = "images/wolf.png"
             elif computerDecision == extremeRPSChoices[14]:
-                userImage = "cockroach.png"
+                computerImage = "images/cockroach.png"
             elif computerDecision == extremeRPSChoices[15]:
-                computerImage = "tree.png"
+                computerImage = "images/tree.png"
             elif computerDecision == extremeRPSChoices[16]:
-                computerImage = "man.png"
+                computerImage = "images/man.png"
             elif computerDecision == extremeRPSChoices[17]:
-                computerImage = "woman.png"
+                computerImage = "images/woman.png"
             elif computerDecision == extremeRPSChoices[18]:
-                computerImage = "monkey.png"
+                computerImage = "images/monkey.png"
             elif computerDecision == extremeRPSChoices[19]:
-                computerImage = "snake.png"
+                computerImage = "images/snake.png"
             elif computerDecision == extremeRPSChoices[20]:
-                computerImage = "axe.png"
+                computerImage = "images/axe.png"
             elif computerDecision == extremeRPSChoices[21]:
-                computerImage = "scissors.png"
+                computerImage = "images/scissors.png"
             elif computerDecision == extremeRPSChoices[22]:
-                computerImage = "fire.png"
+                computerImage = "images/fire.png"
             elif computerDecision == extremeRPSChoices[23]:
-                computerImage = "sun.png"
+                computerImage = "images/sun.png"
             elif computerDecision == extremeRPSChoices[24]:
-                computerImage = "rock.png"
+                computerImage = "images/rock.png"
             else:
-                computerImage = "error.png" #IF ERROR OCCURS
+                computerImage = "images/error.png" #IF ERROR OCCURS
 
         with subCol1:
             if userInput != "":
