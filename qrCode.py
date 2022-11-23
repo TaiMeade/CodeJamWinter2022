@@ -5,42 +5,24 @@ This is intended to allow a user to enter a list of names (separated by commas) 
 
 """
 
-# Module used to create QR codes
+# Modules
 import qrcode
 # Module for decoding/getting value from QR code
 import cv2
-# Module for creating UI
 import streamlit as st
-# Other modules
 import os
-#import csv
 
-def qrCreator():
-
-    needTXT = st.checkbox("Do you already have a .txt file on your desktop containing all students?")
+# Creates text file that educator can use to check attendance.
+def txtCreator(needTXT):
 
     names = st.text_input("Please enter your list of names (separated by commas): ")
 
     desktopPath = os.path.join(os.path.join(os.path.expanduser('~'), 'Desktop')) # Creds to StackOverflow
 
-    newFolder = os.path.join(desktopPath, "qrCodes")
     if names != "":
-        try:
-            os.mkdir(newFolder)
-        except FileExistsError as e:
-            pass
-
         nameList = names.split(",")
 
-        # Converts the list (nameList) into a list of lists (listOfNameList) so csvwriter writes it properly.
-        # listOfNameList = []
-        # for name in nameList:
-        #     name = name.split(',')
-            
-        #     listOfNameList.append(name)
-            
-        # Create CSV file with student names to compare to later.
-        if needTXT == False:
+    if needTXT == True:
             with open(desktopPath + "/students.txt", 'w') as txtFile:
                 for i, name in enumerate(nameList):
                     name = name.strip()
@@ -48,32 +30,44 @@ def qrCreator():
                         txtFile.write(name + ',')
                     else:
                         txtFile.write(name)
-        
-        for name in nameList:
-            name = name.strip()
-            st.write(name) # <------  what is being stored in qr code
-            img = qrcode.make(name[0:])
-            if name[-1] == ",":
-                img.save(f"{desktopPath}/qrCodes/{name[0:-1]}.jpg")
-            else:
-                img.save(f"{desktopPath}/qrCodes/{name}.jpg")
+
+def qrCreator(fileName):
+
+    desktopPath = os.path.join(os.path.join(os.path.expanduser('~'), 'Desktop')) # Creds to StackOverflow
+
+    newFolder = os.path.join(desktopPath, "qrCodes")
+
+    try:
+        if fileName != "":
+            try:
+                os.mkdir(newFolder)
+            except FileExistsError as e:
+                pass
+
+            with open(desktopPath + "/" + fileName, 'r') as txtFile:
+                # Turns contents from attendance sheet/file into list for comparing
+                content = txtFile.read()
+                contentList = content.split(",")
+
+            for name in contentList:
+                name = name.strip()
+                st.write(name) # <------  what is being stored in qr code
+                img = qrcode.make(name[0:])
+                if name[-1] == ",":
+                    img.save(f"{desktopPath}/qrCodes/{name[0:-1]}.jpg")
+                else:
+                    img.save(f"{desktopPath}/qrCodes/{name}.jpg")
+    except Exception as e:
+        st.write(e)
 
 
-tab1,tab2,tab3 = st.tabs(['QR Creator','QR Checker','Attendance Checker'])
 
-# Create QR Codes
-with tab1:
-    qrCreator()
-
-# QR Value Getter
-with tab2:
-    folderName = st.text_input("Please enter the folder that your QR Codes are stored in: ")
+def qrChecker(folderName):
 
     desktopPath = os.path.join(os.path.join(os.path.expanduser('~'), 'Desktop')) # Creds to StackOverflow
 
     directory = f"{desktopPath}/{folderName}"
 
-    # Gets values from qrCodes
     if folderName != "":
         try:
             qrValues = []
@@ -83,13 +77,15 @@ with tab2:
                     d = cv2.QRCodeDetector()
                     value, points, straightQRCode = d.detectAndDecode(cv2.imread(f))
                     qrValues.append(value)
-                    st.write(value)
-            st.write(qrValues)
+                    # st.write(value)
+            return qrValues
         except Exception:
             st.write("That file could not be found.")
 
-# Compare QR Codes (students in class) to .txt file that user has containing all students
-with tab3:
+    
+def attendanceChecker(qrValues):
+
+    desktopPath = os.path.join(os.path.join(os.path.expanduser('~'), 'Desktop')) # Creds to StackOverflow
 
     attendanceHere = []
     attendanceAbsent = []
@@ -99,6 +95,8 @@ with tab3:
             # Turns contents from attendance sheet/file into list for comparing
             content = txtFile.read()
             contentList = content.split(",")
+
+            # Strips content of beginning and ending whitespace
             contentListStripped = []
             for name in contentList:
                 name = name.strip()
@@ -111,7 +109,7 @@ with tab3:
                         contentListStripped.remove(qrValues[i])
                         #print(contentListStripped)
                 #print(contentListStripped)
-            except IndexError:
+            except Exception:
                 pass
 
             # Sets list of people who weren't absent/don't have a QR Code right now...
@@ -137,6 +135,28 @@ with tab3:
         st.write("Come back when you're ready!")
     else:
         st.write("Then why are you here?")
+
+
+
+
+
+
+tab1,tab2,tab3 = st.tabs(['Text File Creator','QR Creator','Attendance Checker'])
+
+# Create QR Codes
+with tab1:
+    st.write("This section is used to create QR codes with student's names stored in them.  It uses a .txt file to know what to create.")
+    txtCreator(st.checkbox("Do you need to create a TXT file?"))
+
+# QR Value Getter
+with tab2:
+    qrCreator(st.text_input("Please enter the name of the file with your students:"))
+
+
+# Compare QR Codes (students in class) to .txt file that user has containing all students
+with tab3:
+    attendanceChecker(qrChecker(st.text_input("Please enter the name of the file with your QR Codes:")))
+    
 
 
     
