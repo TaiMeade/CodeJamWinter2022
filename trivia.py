@@ -8,6 +8,8 @@ Use open trivia API to get a random trivia question...allow user to select corre
 import requests
 import streamlit as st
 import random
+import soundFX
+from playsound import playsound
 
 # Getting JSON based on user inputs and converting to all needed parts
 def getTrivia(categoryType,difficultyLevel,multipleOrTF):
@@ -68,9 +70,9 @@ def translateToUseable(triviaJSON):
     difficulty = triviaJSONresults['difficulty']
     question = triviaJSONresults['question']
     correctAnswer = triviaJSONresults['correct_answer']
+    correctAnswer = [correctAnswer]
     incorrectAnswers = triviaJSONresults['incorrect_answers']
-    incorrectAnswers.append(correctAnswer)
-    allAnswers = incorrectAnswers
+    allAnswers = incorrectAnswers + correctAnswer
     
     return category,typeOfQuestion,difficulty,question,correctAnswer,allAnswers
 
@@ -80,22 +82,71 @@ def main():
     difficultyLevel = st.sidebar.selectbox('Difficulty:', ['Any','Easy','Medium','Hard'])
     multipleOrTF = st.sidebar.selectbox('Type:', ['Any','Multiple Choice','True or False'])
 
-    if 'triviaJSON' not in st.session_state:
-        st.session_state.triviaJSON = getTrivia(categoryType,difficultyLevel,multipleOrTF)
+    try:
+        if 'triviaJSON' not in st.session_state:
+            st.session_state.triviaJSON = ""
 
-    if st.button("New Question"):
+        if 'category' not in st.session_state:
+            st.session_state.category = ""
+        
+        if 'typeOfQuestion' not in st.session_state:
+            st.session_state.typeOfQuestion = ""
+
+        if 'difficulty' not in st.session_state:
+            st.session_state.difficulty = ""
+
+        if 'question' not in st.session_state:
+            st.session_state.question = ""
+        
+        if 'correctAnswer' not in st.session_state:
+            st.session_state.correctAnswer = ""
+
+        if 'allAnswers' not in st.session_state:
+            st.session_state.allAnswers = []
+
+        if st.button("New Question"):
             # Gets a new question
             st.session_state.triviaJSON = getTrivia(categoryType,difficultyLevel,multipleOrTF)
 
-    category,typeOfQuestion,difficulty,question,correctAnswer,allAnswers = translateToUseable(st.session_state.triviaJSON)
+            st.session_state.category,st.session_state.typeOfQuestion,st.session_state.difficulty,st.session_state.question,st.session_state.correctAnswer,st.session_state.allAnswers = translateToUseable(st.session_state.triviaJSON)
 
-    # NOTE: USING st.write MAKES IT WORK for fixing things like '&quot;' not being '"'...
-    st.write(category)
-    st.write(typeOfQuestion)
-    st.write(difficulty)
-    st.write(question)
-    st.write(allAnswers)
+            if ['shuffledAnswers'] not in st.session_state:
+                st.session_state.shuffledAnswers = random.sample(st.session_state.allAnswers, len(st.session_state.allAnswers))
 
+            st.session_state.answer = ""
+
+        # NOTE: USING st.write MAKES IT WORK for fixing things like '&quot;' not being '"'...API I used has weird formatting
+        st.write("---")
+        st.write(f"Category: ***{st.session_state.category}***")
+        st.write(f"Difficulty: **{st.session_state.difficulty.title()}**")
+        st.write("---")
+        st.write("**Question:**")
+        st.write(st.session_state.question)
+
+
+        
+        # Currently has an issue that it does not convert HTML code to normal text...not sure how to fix
+        if 'answer' not in st.session_state:
+            st.session_state.answer = st.selectbox("filler",[""] + st.session_state.shuffledAnswers, key=0, label_visibility="hidden")
+        st.session_state.answer = st.selectbox("filler",[""] + st.session_state.shuffledAnswers, key=1, label_visibility="hidden")
+
+
+
+
+
+        # st.session_state.answer = st.radio(question,allAnswers, key=1)
+        if st.session_state.answer != "":
+            if st.session_state.answer == st.session_state.correctAnswer[0]:
+                st.subheader(":thumbsup: CORRECT :thumbsup:")
+                playsound("soundFX/tada-fanfare-a-6313.mp3")
+            else:
+                st.subheader(":thumbsdown: INCORRECT :thumbsdown:")
+                playsound("soundFX/wrong.mp3")
+    except Exception as e:
+        st.write(e)
+        #pass
+
+                
 
 if __name__ == '__main__':
     main()
