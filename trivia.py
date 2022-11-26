@@ -9,6 +9,7 @@ import requests
 import streamlit as st
 import random
 import soundFX
+import html
 from playsound import playsound
 
 # Getting JSON based on user inputs and converting to all needed parts
@@ -73,7 +74,18 @@ def translateToUseable(triviaJSON):
     correctAnswer = [correctAnswer]
     incorrectAnswers = triviaJSONresults['incorrect_answers']
     allAnswers = incorrectAnswers + correctAnswer
-    
+
+    # Fixes things that should appear as symbols/characters but were HTML entities
+    i = 0
+    for j in range(len(allAnswers)):
+        allAnswers[j] = html.unescape(allAnswers[j])
+        i += 1
+    # Does same thing for variable correct answer
+    i = 0
+    for j in range(len(correctAnswer)):
+        correctAnswer[j] = html.unescape(correctAnswer[j])
+        i += 1
+
     return category,typeOfQuestion,difficulty,question,correctAnswer,allAnswers
 
 def main():
