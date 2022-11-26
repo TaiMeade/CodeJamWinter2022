@@ -121,13 +121,11 @@ def attendanceChecker(qrValues):
     if readyOrNot == "":
         st.write("")
     elif readyOrNot == 'y':
-        col1,col2 = st.columns(2)
-        with col1:
-            st.write("Present in class:")
+        presentTab,absentTab = st.tabs(['Present','Absent'])
+        with presentTab:
             for line in attendanceHere:
                 st.write(line)
-        with col2:
-            st.write("Absent")
+        with absentTab:
             for line in attendanceAbsent:
                 st.write(line)
 
@@ -139,23 +137,26 @@ def attendanceChecker(qrValues):
 
 
 
+def main():
+
+    tab1,tab2,tab3 = st.tabs(['Text File Creator','QR Creator','Attendance Checker'])
+
+    # Create QR Codes
+    with tab1:
+        st.write("This section is used to create QR codes with student's names stored in them.  It uses a .txt file to know what to create.")
+        txtCreator(st.checkbox("Do you need to create a TXT file?"))
+
+    # QR Value Getter
+    with tab2:
+        qrCreator(st.text_input("Please enter the name of the file with your students:"))
 
 
-tab1,tab2,tab3 = st.tabs(['Text File Creator','QR Creator','Attendance Checker'])
+    # Compare QR Codes (students in class) to .txt file that user has containing all students
+    with tab3:
+        attendanceChecker(qrChecker(st.text_input("Please enter the name of the folder with your QR Codes:")))
 
-# Create QR Codes
-with tab1:
-    st.write("This section is used to create QR codes with student's names stored in them.  It uses a .txt file to know what to create.")
-    txtCreator(st.checkbox("Do you need to create a TXT file?"))
-
-# QR Value Getter
-with tab2:
-    qrCreator(st.text_input("Please enter the name of the file with your students:"))
-
-
-# Compare QR Codes (students in class) to .txt file that user has containing all students
-with tab3:
-    attendanceChecker(qrChecker(st.text_input("Please enter the name of the file with your QR Codes:")))
+if __name__ == '__main__':
+    main()
     
 
 
