@@ -5,10 +5,10 @@ CodeJam for the New River Coding Club.  Will be similar to my final project for 
 
 ## Tools/Pages thus far
 * Main/Home Page :house:
-* Rock Paper Scissors Variants/Probability Lesson
+* Rock Paper Scissors Variants/Probability Lesson :scissors:
   * RPS 25
   * RPS 101
-* Trivia game...currently does not prevent repeat questions
-* qrCode creator/attendance checker demonstration
+* Trivia game...currently does not prevent repeat questions :question:
+* qrCode creator/attendance checker demonstration :raising_hand:
   * Would theoretically be used by teachers/professors to take attendance via students scanning QR Codes rather than calling role.
 * Plan to add TypeSpeedTester :clock130:
