@@ -9,8 +9,9 @@ Educational CodeJam for Fall/Winter 2022
 import streamlit as st
 import extremeRPS as RPS25
 import RPS101
+import images
 
-st.set_page_config("Education", "books.png", "wide")
+st.set_page_config("Education", "images/books.png", "wide")
 
 st.sidebar.title("Options:")
 page = st.sidebar.selectbox("Select Page: ", ['Home','Probability Fun'])
@@ -29,11 +30,11 @@ if page == 'Home':
         st.write("---")
     with col2:
         st.write("")
-        st.image("education_word_collage.png", use_column_width="always")
+        st.image("images/education_word_collage.png", use_column_width="always")
 
 elif page == 'Probability Fun':
 
-    gameType = st.sidebar.selectbox(['RPS 25', 'RPS 101'])
+    gameType = st.sidebar.selectbox("Poop",['RPS 25', 'RPS 101'])
 
     if gameType == 'RPS 25':
         RPS25.main()
