@@ -4,7 +4,7 @@
 CodeJam for the New River Coding Club.  Will be similar to my final project for CSC221 in terms of format...uses streamlit and creates a UI that showcases a toolbox of things the user can interact with.
 
 ## Tools/Pages thus far
-* Main/Home Page
+* Main/Home Page :house:
 * Rock Paper Scissors Variants/Probability Lesson
   * RPS 25
   * RPS 101
