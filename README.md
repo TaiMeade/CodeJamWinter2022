@@ -11,4 +11,4 @@ CodeJam for the New River Coding Club.  Will be similar to my final project for 
 * Trivia game...currently does not prevent repeat questions :question:
 * qrCode creator/attendance checker demonstration :raising_hand:
   * Would theoretically be used by teachers/professors to take attendance via students scanning QR Codes rather than calling role.
-* Plan to add TypeSpeedTester :clock130:
+* TypeSpeedTester :clock130:
