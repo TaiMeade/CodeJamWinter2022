@@ -19,6 +19,7 @@ def getComputerChoice(listOfChoices):
     computerChoice = random.choice(listOfChoices)
 
     return computerChoice
+    
 def main():
 
     col1,col2 = st.columns(2)

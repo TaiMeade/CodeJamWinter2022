@@ -90,73 +90,89 @@ def translateToUseable(triviaJSON):
 
 def main():
 
-    categoryType = st.sidebar.selectbox("Category:", ['Any','General Knowledge','Entertainment: Books','Entertainment: Film','Entertainment: Music','Entertainment: Musicals and Theatres','Entertainment: Television','Entertainment: Video Games','Entertainment: Board Games','Science and Nature','Science: Computers','Science: Math','Mythology','Sports','Geography','History','Politics','Art','Celebrities','Animals','Vehicles','Entertainment: Comics','Science: Gadgets','Entertainment: Japanese Anime/Manga','Entertainment: Cartoon and Animations'])
-    difficultyLevel = st.sidebar.selectbox('Difficulty:', ['Any','Easy','Medium','Hard'])
-    multipleOrTF = st.sidebar.selectbox('Type:', ['Any','Multiple Choice','True or False'])
+    st.title("Trivia Game :question: :grey_question:")
+
+    # Goal
+    st.subheader("Goal:")
+    st.write("This program/page uses an API to get trivia questions that can be separated via the options on the left. This program is meant to help the teacher learn more about a little bit of everything, or something more specific if they want to. This can also be used to test your knowledge! In general, it is meant to help educate the user, while helping them have fun!")
+    
+    # Notes
+    with st.expander("Notes:"):
+        st.write("* You get unlimited tried on each question, so don't worry if you get it wrong!")
+        st.write("* There is a slight delay for answers to submit...just a heads up!")
+        st.write("* Have fun!")
+        st.write("---")
 
     try:
-        if 'triviaJSON' not in st.session_state:
-            st.session_state.triviaJSON = ""
+        categoryType = st.sidebar.selectbox("Category:", ['Any','General Knowledge','Entertainment: Books','Entertainment: Film','Entertainment: Music','Entertainment: Musicals and Theatres','Entertainment: Television','Entertainment: Video Games','Entertainment: Board Games','Science and Nature','Science: Computers','Science: Math','Mythology','Sports','Geography','History','Politics','Art','Celebrities','Animals','Vehicles','Entertainment: Comics','Science: Gadgets','Entertainment: Japanese Anime/Manga','Entertainment: Cartoon and Animations'])
+        difficultyLevel = st.sidebar.selectbox('Difficulty:', ['Any','Easy','Medium','Hard'])
+        multipleOrTF = st.sidebar.selectbox('Type:', ['Any','Multiple Choice','True or False'])
 
-        if 'category' not in st.session_state:
-            st.session_state.category = ""
-        
-        if 'typeOfQuestion' not in st.session_state:
-            st.session_state.typeOfQuestion = ""
+        try:
+            if 'triviaJSON' not in st.session_state:
+                st.session_state.triviaJSON = ""
 
-        if 'difficulty' not in st.session_state:
-            st.session_state.difficulty = ""
+            if 'category' not in st.session_state:
+                st.session_state.category = ""
+            
+            if 'typeOfQuestion' not in st.session_state:
+                st.session_state.typeOfQuestion = ""
 
-        if 'question' not in st.session_state:
-            st.session_state.question = ""
-        
-        if 'correctAnswer' not in st.session_state:
-            st.session_state.correctAnswer = ""
+            if 'difficulty' not in st.session_state:
+                st.session_state.difficulty = ""
 
-        if 'allAnswers' not in st.session_state:
-            st.session_state.allAnswers = []
+            if 'question' not in st.session_state:
+                st.session_state.question = ""
+            
+            if 'correctAnswer' not in st.session_state:
+                st.session_state.correctAnswer = ""
 
-        if st.button("New Question"):
-            # Gets a new question
-            st.session_state.triviaJSON = getTrivia(categoryType,difficultyLevel,multipleOrTF)
+            if 'allAnswers' not in st.session_state:
+                st.session_state.allAnswers = []
 
-            st.session_state.category,st.session_state.typeOfQuestion,st.session_state.difficulty,st.session_state.question,st.session_state.correctAnswer,st.session_state.allAnswers = translateToUseable(st.session_state.triviaJSON)
+            if st.button("New Question"):
+                # Gets a new question
+                st.session_state.triviaJSON = getTrivia(categoryType,difficultyLevel,multipleOrTF)
 
-            if ['shuffledAnswers'] not in st.session_state:
-                st.session_state.shuffledAnswers = random.sample(st.session_state.allAnswers, len(st.session_state.allAnswers))
+                st.session_state.category,st.session_state.typeOfQuestion,st.session_state.difficulty,st.session_state.question,st.session_state.correctAnswer,st.session_state.allAnswers = translateToUseable(st.session_state.triviaJSON)
 
-            st.session_state.answer = ""
+                if ['shuffledAnswers'] not in st.session_state:
+                    st.session_state.shuffledAnswers = random.sample(st.session_state.allAnswers, len(st.session_state.allAnswers))
 
-        # NOTE: USING st.write MAKES IT WORK for fixing things like '&quot;' not being '"'...API I used has weird formatting
-        st.write("---")
-        st.write(f"Category: ***{st.session_state.category}***")
-        st.write(f"Difficulty: **{st.session_state.difficulty.title()}**")
-        st.write("---")
-        st.write("**Question:**")
-        st.write(st.session_state.question)
+                st.session_state.answer = ""
 
-
-        
-        # Currently has an issue that it does not convert HTML code to normal text...not sure how to fix
-        if 'answer' not in st.session_state:
-            st.session_state.answer = st.selectbox("filler",[""] + st.session_state.shuffledAnswers, key=0, label_visibility="hidden")
-        st.session_state.answer = st.selectbox("filler",[""] + st.session_state.shuffledAnswers, key=1, label_visibility="hidden")
+            # NOTE: USING st.write MAKES IT WORK for fixing things like '&quot;' not being '"'...API I used has weird formatting
+            st.write("---")
+            st.write(f"Category: ***{st.session_state.category}***")
+            st.write(f"Difficulty: **{st.session_state.difficulty.title()}**")
+            st.write("---")
+            st.write("**Question:**")
+            st.write(st.session_state.question)
 
 
+            
+            # Currently has an issue that it does not convert HTML code to normal text...not sure how to fix
+            if 'answer' not in st.session_state:
+                st.session_state.answer = st.selectbox("filler",[""] + st.session_state.shuffledAnswers, key=0, label_visibility="hidden")
+            st.session_state.answer = st.selectbox("filler",[""] + st.session_state.shuffledAnswers, key=1, label_visibility="hidden")
 
 
 
-        # st.session_state.answer = st.radio(question,allAnswers, key=1)
-        if st.session_state.answer != "":
-            if st.session_state.answer == st.session_state.correctAnswer[0]:
-                st.subheader(":thumbsup: CORRECT :thumbsup:")
-                playsound("soundFX/tada-fanfare-a-6313.mp3")
-            else:
-                st.subheader(":thumbsdown: INCORRECT :thumbsdown:")
-                playsound("soundFX/wrong.mp3")
-    except Exception as e:
-        st.write(e)
-        #pass
+
+
+            # st.session_state.answer = st.radio(question,allAnswers, key=1)
+            if st.session_state.answer != "":
+                if st.session_state.answer == st.session_state.correctAnswer[0]:
+                    st.subheader(":thumbsup: CORRECT :thumbsup:")
+                    playsound("soundFX/tada-fanfare-a-6313.mp3")
+                else:
+                    st.subheader(":thumbsdown: INCORRECT :thumbsdown:")
+                    playsound("soundFX/wrong.mp3")
+        except Exception as e:
+            #st.write(e)
+            pass
+    except Exception:
+        pass
 
                 
 

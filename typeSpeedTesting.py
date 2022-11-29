@@ -39,7 +39,7 @@ def getThingToType():
                                     "I hope everyone is enjoying my TypeSpeedTester, I truly enjoyed creating this!",
                                     "Maybe one day when Mary gets married, we can finally meet her boyfriend...well husband technically.",
                                     "Sally sells seashells down by the seashore.",
-                                    "I'm not the pheasant plucker, I'm the pheasant plucker's son. I'm only plucking pheasants until the pheasant plucker comes.",
+                                    "I'm not the pheasant plucker, I'm the pheasant plucker's son. I'm only plucking pheasants til the pheasant plucker comes.",
                                     "This past weekend, I went a Carolina Panthers game and when I got back to where I parked, my car was gone. Turns out I got towed!",
                                     "Sometimes coding can be difficult, frustrating, or even downright infuriating. However, almost nothing beats the feeling of finally getting your program you so much blood, sweat, and tears into to work."
                         ]
@@ -58,7 +58,7 @@ def main():
     st.subheader("Goal:")
 
     st.write("This program/page is designed to help the user practice their typing speed. Once the 'New Game' button is clicked, a background timer will begin and track how long it takes you to complete it. It will use this number, along with the length of the sentence to calculate your letters typed per second, and of course your words per minute. Good luck, and have fun!")
-    st.write("Note: There a limited number of random sentences, also please read the Rules/Tips below :arrow_down: :arrow_down: :arrow_down:")
+    st.write("Note: There is a limited number of random sentences, also please read the Rules/Tips below :arrow_down: :arrow_down: :arrow_down:")
     st.write("---")
 
     with st.expander("RULES/TIPS:"):
