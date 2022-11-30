@@ -132,7 +132,7 @@ def attendanceChecker(qrValues):
     elif readyOrNot == 'n':
         st.write("Come back when you're ready!")
     else:
-        st.write("Then why are you here?")
+        st.write("Then why are you here? Lol")
 
 
 

@@ -31,8 +31,9 @@ if page == 'Home':
         st.subheader("Created By: Tai Meade")
         st.write("---")
         st.subheader("Goals:")
-        st.write("* Showcase a toolbox of lessons (using games) and tools for educators.")
+        st.write("* Showcase a toolbox of programs to help the user leave this program smarter than they were before encountering it!")
         st.write("* Help the user have fun while learning!")
+        st.write("* QR Code page/program is intended to help educators track attendance...it is currently a basic proof of concept, rather than a ready to deploy idea, but it is fun!")
         st.write("---")
 
     with col2:

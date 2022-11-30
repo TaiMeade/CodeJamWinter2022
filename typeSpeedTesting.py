@@ -41,7 +41,7 @@ def getThingToType():
                                     "Sally sells seashells down by the seashore.",
                                     "I'm not the pheasant plucker, I'm the pheasant plucker's son. I'm only plucking pheasants til the pheasant plucker comes.",
                                     "This past weekend, I went a Carolina Panthers game and when I got back to where I parked, my car was gone. Turns out I got towed!",
-                                    "Sometimes coding can be difficult, frustrating, or even downright infuriating. However, almost nothing beats the feeling of finally getting your program you so much blood, sweat, and tears into to work."
+                                    "Sometimes coding can be difficult, frustrating, or even downright infuriating. However, almost nothing beats the feeling of finally getting your program you put so much blood, sweat, and tears into to work."
                         ]
     }
 
